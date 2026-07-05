@@ -1,0 +1,13 @@
+/* ── Hide native scrollbar everywhere ─────────────────────── */
+/* Optional — import only if you want scrollbars hidden       */
+/* ────────────────────────────────────────────────────────── */
+
+/* Firefox */
+* {
+  scrollbar-width: none;
+}
+
+/* Chrome / Safari / Edge */
+*::-webkit-scrollbar {
+  display: none;
+}

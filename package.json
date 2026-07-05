@@ -1,0 +1,28 @@
+{
+  "name": "oj-branding-preset",
+  "version": "1.0.0",
+  "description": "Shared brand color/design tokens (CSS variables + JSON) across MERN and Laravel projects",
+  "main": "scripts/index.js",
+  "files": [
+    "css",
+    "scripts",
+    "tokens",
+    "ui"
+  ],
+  "exports": {
+    ".": "./scripts/index.js",
+    "./theme.css": "./css/theme.css",
+    "./scrollbar.css": "./css/scrollbar.css",
+    "./tokens.json": "./tokens/tokens.json",
+    "./ui/CustomScrollbar": "./ui/CustomScrollbar.tsx"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourname/OJ-branding-preset.git"
+  },
+  "keywords": ["design-tokens", "theme", "css-variables", "tailwind"],
+  "license": "MIT"
+}
