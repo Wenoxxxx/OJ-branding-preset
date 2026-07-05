@@ -1,6 +1,6 @@
 {
   "name": "oj-branding-preset",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Shared brand color/design tokens (CSS variables + JSON) across MERN and Laravel projects",
   "main": "index.js",
   "files": [
@@ -26,6 +26,11 @@
     "type": "git",
     "url": "git+https://github.com/Wenoxxxx/OJ-branding-preset.git"
   },
-  "keywords": ["design-tokens", "theme", "css-variables", "tailwind"],
+  "keywords": [
+    "design-tokens",
+    "theme",
+    "css-variables",
+    "tailwind"
+  ],
   "license": "MIT"
 }
