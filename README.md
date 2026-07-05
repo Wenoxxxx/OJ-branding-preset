@@ -6,11 +6,11 @@ Shared brand color tokens — one source of truth for every project (MERN, Larav
 
 ```
 OJ-branding-preset/
+├── index.js             ← package entry point, exports tokens/tokens.json as JS
 ├── css/
-│   ├── theme.css       ← color tokens (light + dark)
-│   └── scrollbar.css   ← optional hidden-scrollbar rules
-├── scripts/
-│   └── index.js        ← exports tokens/tokens.json as a JS object
+│   ├── theme.css        ← color tokens (light + dark)
+│   └── scrollbar.css    ← optional hidden-scrollbar rules
+├── scripts/             ← reserved for future build/gen scripts (empty for now)
 ├── tokens/
 │   └── tokens.json      ← color values as plain JSON (source of truth)
 ├── ui/
@@ -19,16 +19,44 @@ OJ-branding-preset/
 └── README.md
 ```
 
+## Prerequisites
+
+Before installing, the target project folder **must already be an npm project**
+(i.e. have its own `package.json`). `npm install` needs somewhere to register
+the dependency — without a `package.json`, the install has nothing to attach to.
+
+Check if your project already has one:
+```bash
+dir package.json        # Windows PowerShell
+ls package.json          # Mac/Linux
+```
+
+If it doesn't exist yet, create it first:
+```bash
+npm init -y
+```
+
+Then proceed to installing the package below.
+
 ## Install
 
 ```bash
-npm install github:yourname/OJ-branding-preset
+npm install github:Wenoxxxx/OJ-branding-preset
 ```
 
 Pin to a tag once stable:
 ```bash
-npm install github:yourname/OJ-branding-preset#v1.0.0
+npm install github:Wenoxxxx/OJ-branding-preset#v1.0.0
 ```
+
+## Verify the install
+
+```bash
+dir node_modules\oj-branding-preset        # Windows
+ls node_modules/oj-branding-preset          # Mac/Linux
+```
+
+You should see: `css/`, `scripts/`, `tokens/`, `ui/`, `index.js`, `package.json`.
 
 ## Usage — Tailwind v4 / shadcn projects (CSS)
 
@@ -36,7 +64,7 @@ In your project's `globals.css`, import the token file *before* your `@theme inl
 
 ```css
 @import "tailwindcss";
-@import "oj-branding-preset/theme.css";
+@import "oj-branding-preset/css/theme.css";
 
 @theme inline {
   --color-primary: var(--primary);
@@ -53,8 +81,8 @@ Keep app-specific overrides (fonts, forced border-radius, etc.) in your own `glo
 If a project wants the scrollbar-hidden look too, import it separately:
 
 ```css
-@import "oj-branding-preset/theme.css";
-@import "oj-branding-preset/scrollbar.css";
+@import "oj-branding-preset/css/theme.css";
+@import "oj-branding-preset/css/scrollbar.css";
 ```
 
 Leave it out for projects where you want the native scrollbar to show.
@@ -98,6 +126,36 @@ $tokens = json_decode(file_get_contents(
 
 $primary = $tokens['light']['primary']; // #1b5def
 ```
+
+## Full walkthrough (new project, step by step)
+
+This covers the exact scenario where a project folder is brand new and hasn't
+run any npm commands yet.
+
+```bash
+# 1. Go into your project folder
+cd my-project
+
+# 2. Check if package.json already exists
+dir package.json          # Windows
+ls package.json            # Mac/Linux
+
+# 3. If it doesn't exist, initialize npm first — this is required
+npm init -y
+
+# 4. Now install the branding preset
+npm install github:Wenoxxxx/OJ-branding-preset
+
+# 5. Confirm it installed correctly
+dir node_modules\oj-branding-preset       # Windows
+ls node_modules/oj-branding-preset         # Mac/Linux
+```
+
+If step 5 shows `css/`, `scripts/`, `tokens/`, `ui/`, `index.js`, `package.json` —
+the install worked and you're ready to import it in your code (see usage sections below).
+
+If `npm install` is run in a folder with no `package.json`, it will either fail
+or install into the wrong place — always run `npm init -y` first for any new folder.
 
 ## Updating tokens
 
