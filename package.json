@@ -8,14 +8,16 @@
     "css",
     "scripts",
     "tokens",
-    "ui"
+    "ui",
+    "assets"
   ],
   "exports": {
     ".": "./index.js",
     "./theme.css": "./css/theme.css",
     "./scrollbar.css": "./css/scrollbar.css",
     "./tokens.json": "./tokens/tokens.json",
-    "./ui/CustomScrollbar": "./ui/CustomScrollbar.tsx"
+    "./ui/*": "./ui/*",
+    "./assets/*": "./assets/*"
   },
   "peerDependencies": {
     "react": ">=18"
