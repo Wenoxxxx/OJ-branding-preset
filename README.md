@@ -35,6 +35,21 @@ OJ-branding-preset/
 └── UPDATING.md           ← how to push changes and refresh installs elsewhere
 ```
 
+## Adding or removing files
+
+Any file inside `css/`, `tokens/`, `ui/`, `assets/`, or `scripts/` is automatically
+importable — `package.json` uses wildcard exports for these folders, so adding,
+renaming, or removing a file inside them doesn't require touching `package.json`.
+
+```tsx
+// works automatically, no exports edit needed
+import newLogo from "oj-branding-preset/assets/logos/logo-dark.svg"
+```
+
+A manual edit is only needed if you create a **brand-new top-level folder**
+(something other than the five above) — that one new folder needs one line
+added to both `files` and `exports` in `package.json`.
+
 ## Quick install
 
 ```bash
@@ -46,10 +61,60 @@ Requires the target project to already have its own `package.json`
 example (Tailwind/shadcn, plain JS, Laravel Blade, the React scrollbar) live in
 **[INSTALLATION.md](./INSTALLATION.md)**.
 
-## Updating
+## Keeping projects updated
 
-Changed a token or added a new file? See **[UPDATING.md](./UPDATING.md)** for
-how to push the change and how to refresh it in projects that already installed it.
+Made an edit to this preset (new token, new font, new logo, etc.)? Projects that
+already installed it **won't** pick up the change automatically — GitHub installs
+don't auto-update.
+
+### If you're the one editing this preset
+
+Push the change here first:
+```bash
+cd OJ-branding-preset
+git add .
+git commit -m "Describe what changed"
+git push
+```
+
+### If you're using this preset in a project (and it's now outdated)
+
+⚠️ **Before touching `node_modules`, commit or stash your own project's work first.**
+```bash
+git add .
+git commit -m "WIP before updating oj-branding-preset"
+```
+This is just a safety net — reinstalling a package shouldn't normally touch your
+own files, but committing first means you can always undo anything if a build
+breaks or a path changes, instead of losing uncommitted work.
+
+Then refresh the package:
+```bash
+npm uninstall oj-branding-preset
+npm cache clean --force
+npm install github:Wenoxxxx/OJ-branding-preset
+```
+
+The `npm cache clean --force` step matters — without it, npm can silently
+serve the old cached version even after a fresh push.
+
+After reinstalling, double-check nothing in your own code broke — e.g. a color
+usage, an import path, or a component prop that changed — before committing
+the update itself.
+
+Full details, version bumping, and pinning to tags are in **[UPDATING.md](./UPDATING.md)**.
+
+## Acknowledgements
+
+Built on top of / designed to pair with:
+
+- **[Tailwind CSS v4](https://tailwindcss.com)** — utility-first CSS framework the tokens are designed around
+- **[shadcn/ui](https://ui.shadcn.com)** — component library these tokens/theme variables map onto
+- **[tw-animate-css](https://github.com/Wombosvideo/tw-animate-css)** — animation utilities used alongside Tailwind
+- **[React](https://react.dev)** — required as a peer dependency for the `CustomScrollbar` component
+- **[Poppins](https://fonts.google.com/specimen/Poppins)** — brand UI font
+- **[JetBrains Mono](https://www.jetbrains.com/lp/mono/)** — brand monospace font
+- **npm / GitHub** — distribution method (`npm install github:...`)
 
 ## License
 
